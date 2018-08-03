@@ -87,7 +87,7 @@
     </dependencies>
 
     <build>
-        <finalName>rest-doc-application</finalName>
+        <finalName>api-table</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

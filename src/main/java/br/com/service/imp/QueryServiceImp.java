@@ -1,8 +1,10 @@
-package br.com.service;
+package br.com.service.imp;
 
 import br.com.query.CreateQuery;
 import br.com.repository.AddColumnRepository;
 import br.com.repository.NameTableRepository;
+import br.com.service.QueryService;
+import br.com.service.ValidatorService;
 import br.com.table.*;
 import br.com.table.column.*;
 import org.springframework.beans.factory.annotation.Autowired;

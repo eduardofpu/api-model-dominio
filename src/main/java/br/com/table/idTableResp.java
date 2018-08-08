@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NameTableResponse {
+public class idTableResp {
     private Long id;
 
 }

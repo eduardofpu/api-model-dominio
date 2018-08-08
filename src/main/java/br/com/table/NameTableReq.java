@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NameTableRequest {
+public class NameTableReq {
     private String nameTable;
 }

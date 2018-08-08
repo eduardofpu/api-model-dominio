@@ -1,7 +1,7 @@
 package br.com.table.column;
 
-import br.com.repository.RepositoryAddColumn;
-import br.com.service.Validator;
+import br.com.repository.AddColumnRepository;
+import br.com.service.ValidatorService;
 import br.com.table.NameTable;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -36,19 +36,19 @@ public class AddColumn {
         this.idTable = idTable;
     }
 
-    public static AddColumn create(String nameColumn, String dataType,NameTable idTable, RepositoryAddColumn repository){
+    public static AddColumn create(String nameColumn, String dataType,NameTable idTable, AddColumnRepository repository){
         AddColumn column = new AddColumn(nameColumn, dataType, idTable);
         return repository.save(column);
     }
 
-    public static AddColumn updateDataTypeIsColumn(Long id, String nameColumn, String dataType, NameTable idTable, RepositoryAddColumn repository, Validator validator){
+    public static AddColumn updateDataTypeIsColumn(Long id, String nameColumn, String dataType, NameTable idTable, AddColumnRepository repository, ValidatorService validator){
 
         validator.verifyIfIdAddCollumnExists(id);
         AddColumn table = new AddColumn(id, nameColumn, dataType, idTable);
         return repository.save(table);
     }
 
-    public static void deleteColumn(Long id, RepositoryAddColumn repository, Validator validator){
+    public static void deleteColumn(Long id, AddColumnRepository repository, ValidatorService validator){
         validator.verifyIfIdAddCollumnExists(id);
         AddColumn column = new AddColumn(id);
         repository.delete(column.getId());

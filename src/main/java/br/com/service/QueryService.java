@@ -1,22 +1,22 @@
 package br.com.service;
 
-import br.com.table.NameModifiedTable;
+import br.com.table.CurrentModified;
+import br.com.table.NameT1IsT2;
 import br.com.table.NameTableReq;
-import br.com.table.NameTableRequest;
-import br.com.table.NameTableResponse;
+import br.com.table.idTableResp;
 import br.com.table.column.*;
 
 import java.sql.SQLException;
-public interface ServiceQuery {
+public interface QueryService {
 
-     NameTableResponse createTable(NameTableRequest nameTable) throws SQLException;
-     AddColumnResponse createColumn(AddColumnRequest parameter) throws SQLException;
-     NameTableResponse updateNameTable(NameModifiedTable nameTable) throws SQLException;
-     AddColumnResponse updateNameDataTypeIsNameConlumn(AlterDataTypeIsColumn parameter) throws SQLException;
-     AddColumnResponse addConstraintNotNullConlumn(AddColumnNameTableReq parameter) throws  SQLException;
-     NameTableReq addForeignKey(NameTableReq parameter) throws SQLException;
-     AddColumnResponse dropConstraintNotNullConlumn(AddColumnNameTableReq parameter) throws SQLException;
-     void dropColumnOfTheTable(DropColumn parameter) throws SQLException;
-     void dropTable(NameTableRequest parameter) throws SQLException;
+     idTableResp createTable(NameTableReq nameTable) throws SQLException;
+     idColumnResp createColumn(TableColumnDataType parameter) throws SQLException;
+     idTableResp updateNameTable(CurrentModified nameTable) throws SQLException;
+     idColumnResp updateNameDataTypeIsNameConlumn(TableColumnDataType parameter) throws SQLException;
+     idColumnResp addConstraintNotNullConlumn(TableColumnReq parameter) throws  SQLException;
+     NameT1IsT2 addForeignKey(NameT1IsT2 parameter) throws SQLException;
+     idColumnResp dropConstraintNotNullConlumn(TableColumnReq parameter) throws SQLException;
+     void dropColumnOfTheTable(TableColumnReq parameter) throws SQLException;
+     void dropTable(NameTableReq parameter) throws SQLException;
 
 }

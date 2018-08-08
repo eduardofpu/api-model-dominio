@@ -1,11 +1,11 @@
 package br.com.query;
 
 import br.com.connection.ConnectionFactory;
-import org.springframework.validation.ObjectError;
 
 import java.sql.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class CreateQuery {
 
@@ -39,12 +39,25 @@ public class CreateQuery {
     }
 
     public static void createTable(String nameTable) throws SQLException{
+
+        String primaryKey = random();
+
         System.out.println("Creating table in given database...");
         stmt = con.createStatement();
         String sql ="CREATE TABLE "+nameTable+
-                "(id BIGSERIAL NOT NULL CONSTRAINT "+nameTable+"_id PRIMARY KEY)";
+                "(id BIGSERIAL NOT NULL CONSTRAINT "+primaryKey+"_id PRIMARY KEY)";
         stmt.executeUpdate(sql);
         System.out.println("Created table in given database...");
+    }
+
+    public static String random(){
+        String p = "p";
+        Random r = new Random();
+        String id = String.valueOf(r.nextInt(101));
+        String k = "k";
+        Random rr = new Random();
+        String idd = String.valueOf(rr.nextInt(1001));
+        return  p.concat(id).concat(k).concat(idd);
     }
 
     public static void addConlumnOfTheTable(String nameTable, String nameColumn, String dataType) throws  SQLException{

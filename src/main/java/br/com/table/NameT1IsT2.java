@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NameTableReq {
+public class NameT1IsT2 {
 
     private String nameTable1;
     private String nameTable2;

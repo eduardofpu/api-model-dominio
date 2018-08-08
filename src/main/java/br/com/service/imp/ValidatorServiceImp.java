@@ -1,8 +1,9 @@
-package br.com.service;
+package br.com.service.imp;
 
 import br.com.error.ResourceNotFoundException;
 import br.com.repository.AddColumnRepository;
 import br.com.repository.NameTableRepository;
+import br.com.service.ValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NameModifiedTable {
+public class CurrentModified {
 
     private String nameCurrent;
 

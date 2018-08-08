@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NameColumDataTypeReq {
+public class TableColumnDataType {
 
     private String nameTable;
     private String nameColumn;

@@ -1,12 +1,11 @@
 package br.com.Controller;
 
 import br.com.table.NameModifiedTable;
+import br.com.table.NameTableReq;
 import br.com.table.NameTableRequest;
 import br.com.table.NameTableResponse;
 import br.com.service.ServiceQuery;
-import br.com.table.column.AddColumnRequest;
-import br.com.table.column.AddColumnResponse;
-import br.com.table.column.AlterDataTypeIsColumn;
+import br.com.table.column.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -43,5 +42,35 @@ public class ControllerQuery {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public AddColumnResponse updateNameDataTypeIsNameConlumn(@RequestBody AlterDataTypeIsColumn parameter) throws SQLException {
         return serviceQuery.updateNameDataTypeIsNameConlumn(parameter);
+    }
+
+    @PutMapping(path = "add/not/null")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public AddColumnResponse addConstraintNotNullConlumn(@RequestBody AddColumnNameTableReq parameter) throws SQLException {
+        return serviceQuery.addConstraintNotNullConlumn(parameter);
+    }
+
+    @PostMapping(path = "add/foreign/key")
+    @ResponseStatus(HttpStatus.CREATED)
+    public NameTableReq addForeignKey(@RequestBody NameTableReq parameter) throws SQLException {
+        return serviceQuery.addForeignKey(parameter);
+    }
+
+    @PutMapping(path = "drop/not/null")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public AddColumnResponse dropConstraintNotNullConlumn(@RequestBody AddColumnNameTableReq parameter) throws SQLException {
+        return serviceQuery.dropConstraintNotNullConlumn(parameter);
+    }
+
+    @DeleteMapping(path = "drop/column")
+    @ResponseStatus(HttpStatus.OK)
+    public void dropColumnOfTheTable(@RequestBody DropColumn parameter) throws SQLException {
+        serviceQuery.dropColumnOfTheTable(parameter);
+    }
+
+    @DeleteMapping(path = "drop/table")
+    @ResponseStatus(HttpStatus.OK)
+    public void dropTable(@RequestBody NameTableRequest parameter) throws SQLException {
+        serviceQuery.dropTable(parameter);
     }
 }

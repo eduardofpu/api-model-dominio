@@ -26,6 +26,9 @@ public class AddColumn {
     @ManyToOne
     NameTable idTable;
 
+    public AddColumn(Long id) {
+        this.id = id;
+    }
 
     public AddColumn(String nameColumn, String dataType, NameTable idTable) {
         this.nameColumn = nameColumn;
@@ -45,5 +48,9 @@ public class AddColumn {
         return repository.save(table);
     }
 
-
+    public static void deleteColumn(Long id, RepositoryAddColumn repository, Validator validator){
+        validator.verifyIfIdAddCollumnExists(id);
+        AddColumn column = new AddColumn(id);
+        repository.delete(column.getId());
+    }
 }

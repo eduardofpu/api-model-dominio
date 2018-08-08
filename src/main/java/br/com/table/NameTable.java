@@ -43,4 +43,10 @@ public class NameTable {
         NameTable table = new NameTable(id, nameTable);
         return repository.save(table);
     }
+
+    public static void deleteTable(Long id, RepositoryNameTable repository, Validator validator){
+        validator.verifyINameTableIdExists(id);
+        NameTable table = new NameTable(id);
+        repository.delete(table.getId());
+    }
 }

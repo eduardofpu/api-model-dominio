@@ -3,17 +3,10 @@ package br.com.service;
 import br.com.query.CreateQuery;
 import br.com.repository.RepositoryAddColumn;
 import br.com.repository.RepositoryNameTable;
-import br.com.table.NameModifiedTable;
-import br.com.table.NameTable;
-import br.com.table.NameTableRequest;
-import br.com.table.NameTableResponse;
-import br.com.table.column.AddColumn;
-import br.com.table.column.AddColumnRequest;
-import br.com.table.column.AddColumnResponse;
-import br.com.table.column.AlterDataTypeIsColumn;
+import br.com.table.*;
+import br.com.table.column.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.sql.SQLException;
 
@@ -70,4 +63,60 @@ public class ServiceImp implements ServiceQuery{
         return new AddColumnResponse(column.getId());
     }
 
+    @Override
+    public AddColumnResponse addConstraintNotNullConlumn(AddColumnNameTableReq parameter) throws SQLException {
+
+        NameTable idTable = repositoryAddColumn.findBayIdNameDataType(parameter.getNameColumn());
+
+        AddColumn columnId = repositoryAddColumn.findBayAddColum(parameter.getNameColumn());
+
+        CreateQuery.addConstraintNotNullConlumn(parameter.getNameTable(), parameter.getNameColumn());
+        AddColumn column = AddColumn.updateDataTypeIsColumn(
+                columnId.getId(),
+                columnId.getNameColumn(),
+                columnId.getDataType().concat(" NOT NULL"),
+                idTable,
+                repositoryAddColumn,
+                validator);
+        return new AddColumnResponse(column.getId());
+    }
+
+    @Override
+    public NameTableReq addForeignKey(NameTableReq parameter) throws SQLException {
+
+        CreateQuery.addForeignKey(parameter.getNameTable1(), parameter.getNameTable2());
+        return new NameTableReq(parameter.getNameTable1(), parameter.getNameTable2());
+    }
+
+    @Override
+    public AddColumnResponse dropConstraintNotNullConlumn(AddColumnNameTableReq parameter) throws SQLException {
+        NameTable idTable = repositoryAddColumn.findBayIdNameDataType(parameter.getNameColumn());
+
+        AddColumn columnId = repositoryAddColumn.findBayAddColum(parameter.getNameColumn());
+
+        CreateQuery.dropConstraintNotNullConlumn(parameter.getNameTable(), parameter.getNameColumn());
+        AddColumn column = AddColumn.updateDataTypeIsColumn(
+                columnId.getId(),
+                columnId.getNameColumn(),
+                columnId.getDataType().replace("NOT NULL",""),
+                idTable,
+                repositoryAddColumn,
+                validator);
+        return new AddColumnResponse(column.getId());
+    }
+
+    @Override
+    public void dropColumnOfTheTable(DropColumn parameter) throws SQLException {
+        AddColumn columnId = repositoryAddColumn.findBayIdAddColum(parameter.getNameColumn());
+        CreateQuery.dropColumnOfTheTable(parameter.getNameTable(), parameter.getNameColumn());
+        AddColumn.deleteColumn(columnId.getId(), repositoryAddColumn, validator);
+    }
+
+    @Override
+    public void dropTable(NameTableRequest parameter) throws SQLException {
+
+        NameTable idNameTable = repositoryNameTable.findBayIdNameTable(parameter.getNameTable());
+        CreateQuery.dropTable(parameter.getNameTable());
+        NameTable.deleteTable(idNameTable.getId(),repositoryNameTable, validator);
+    }
 }

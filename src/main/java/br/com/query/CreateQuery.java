@@ -73,7 +73,8 @@ public class CreateQuery {
         System.out.println("Constraint add in given database...");
     }
 
-    public static void addForeignKey(String nameTable1, String id, String nameTable2) throws  SQLException{
+    public static void addForeignKey(String nameTable1, String nameTable2) throws  SQLException{
+        String id = "id";
         System.out.println("Add foreign key...");
         stmt = con.createStatement();
 
@@ -103,12 +104,12 @@ public class CreateQuery {
 
 
     public static void dropConstraintNotNullConlumn(String nameTable, String nameColumn) throws  SQLException{
-        System.out.println("Add Constraint NULL ...");
+        System.out.println("Drop Constraint NULL ...");
         stmt = con.createStatement();
         String sql ="ALTER TABLE "+nameTable+" ALTER COLUMN "+nameColumn+"  DROP NOT NULL";
         stmt.execute(sql);
         //con.close();
-        System.out.println("Constraint add in given database...");
+        System.out.println("Drop in given database...");
     }
 
     public static void dropColumnOfTheTable(String nameTable, String nameColumn) throws  SQLException{

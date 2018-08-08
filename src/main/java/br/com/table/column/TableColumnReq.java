@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlterDataTypeIsColumn {
+public class ColumnTableReq {
 
     private String nameTable;
     private String nameColumn;
-    private String dataType;
 }
+

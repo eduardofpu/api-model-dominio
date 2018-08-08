@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NameTableRequest {
-    private String nameTable;
+public class NameTableReq {
+
+    private String nameTable1;
+    private String nameTable2;
 }

@@ -1,6 +1,6 @@
 package br.com.service;
 
-public interface Validator {
+public interface ServiceValidator {
     void verifyINameTableIdExists(Long id);
     void verifyIfIdAddCollumnExists(Long id);
 }

@@ -42,19 +42,20 @@ public class ServiceImp implements ServiceQuery{
 
     @Override
     public NameTableResponse updateNameTable(NameModifiedTable parameter) throws SQLException {
-
+        NameTable idNameTable = repositoryNameTable.findBayIdNameTable(parameter.getNameCurrent());
         CreateQuery.alterTable(parameter.getNameCurrent(), parameter.getNameModified());
-        NameTable table = NameTable.updateTable(parameter.getId(), parameter.getNameModified(), repositoryNameTable, validator);
+        NameTable table = NameTable.updateTable(idNameTable.getId(), parameter.getNameModified(), repositoryNameTable, validator);
         return new NameTableResponse(table.getId());
     }
 
     @Override
     public AddColumnResponse updateNameDataTypeIsNameConlumn(AlterDataTypeIsColumn parameter) throws SQLException {
+        AddColumn idColumn = repositoryAddColumn.findBayIdAddColum(parameter.getNameColumn());
         NameTable idTable = repositoryAddColumn.findBayIdNameDataType(parameter.getNameColumn());
 
         CreateQuery.alterDataTypeIsNameColumn(parameter.getNameTable(), parameter.getNameColumn(), parameter.getDataType());
         AddColumn column = AddColumn.updateDataTypeIsColumn(
-                parameter.getId(),
+                idColumn.getId(),
                 parameter.getNameColumn(),
                 parameter.getDataType(),
                 idTable,

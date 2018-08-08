@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NameModifiedTable {
 
-    private Long id;
-
     private String nameCurrent;
 
     private String nameModified;

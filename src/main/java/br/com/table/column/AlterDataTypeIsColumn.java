@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AlterDataTypeIsColumn {
 
-    private Long id;
     private String nameTable;
     private String nameColumn;
     private String dataType;

@@ -1,18 +1,25 @@
 package br.com.query;
 
 import br.com.connection.ConnectionFactory;
-import br.com.table.ObjectParameter;
 import br.com.table.column.AddColumn;
-import org.springframework.util.Assert;
 
 import java.sql.*;
 import java.util.*;
-import java.util.function.UnaryOperator;
 
 public class CreateQuery {
 
     static Connection con = new ConnectionFactory().getConnection();
     static Statement stmt = null;
+    static String values = "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?" ;
 
     public static void createSchema(String nameSchema) throws SQLException {
         System.out.println("Creating schema");
@@ -141,53 +148,42 @@ public class CreateQuery {
         Map<String, String> map = new LinkedHashMap<>();
         map.put(String.valueOf(column), String.valueOf(objects));
 
-        String name = String.valueOf(map.keySet()).replace("[[", "");
-
-        String s1  = "?";
-        String s2  = "?,?";
-        String s3  = "?,?,?";
-        String s4  = "?,?,?,?";
-        String s5  = "?,?,?,?,?";
-        String s6  = "?,?,?,?,?,?";
-        String s7  = "?,?,?,?,?,?,?";
-        String s8  = "?,?,?,?,?,?,?,?";
-        String s9  = "?,?,?,?,?,?,?,?,?";
-        String s10 = "?,?,?,?,?,?,?,?,?,?";
+        String replace = getReplaceColumn(map);
 
         String sql = null;
 
-        if (objects.size() == s1.length()) {
-            sql = "insert into " + nameTable + " (" + name.replace("]]", "") + ")  " + "values" + " (" + s1.toString() + ")";
+        int size = objects.size();
+        sql = executeSqlInsert(nameTable, replace, sql, size);
 
-        } else if (objects.size() == s2.length() - 1) {
-            sql = "insert into " + nameTable + " (" + name.replace("]]", "") + ")  " + "values" + " (" + s2.toString() + ")";
-        } else if (objects.size() == s3.length() - 2) {
-            sql = "insert into " + nameTable + " (" + name.replace("]]", "") + ")  " + "values" + " (" + s3.toString() + ")";
-        }else if (objects.size() == s4.length() - 3) {
-            sql = "insert into " + nameTable + " (" + name.replace("]]", "") + ")  " + "values" + " (" + s4.toString() + ")";
-        }else if (objects.size() == s5.length() - 4) {
-            sql = "insert into " + nameTable + " (" + name.replace("]]", "") + ")  " + "values" + " (" + s5.toString() + ")";
-        }else if (objects.size() == s6.length() - 5) {
-            sql = "insert into " + nameTable + " (" + name.replace("]]", "") + ")  " + "values" + " (" + s6.toString() + ")";
-        }else if (objects.size() == s7.length() - 6) {
-            sql = "insert into " + nameTable + " (" + name.replace("]]", "") + ")  " + "values" + " (" + s7.toString() + ")";
-        }else if (objects.size() == s8.length() - 7) {
-            sql = "insert into " + nameTable + " (" + name.replace("]]", "") + ")  " + "values" + " (" + s8.toString() + ")";
-        }else if (objects.size() == s9.length() - 8) {
-            sql = "insert into " + nameTable + " (" + name.replace("]]", "") + ")  " + "values" + " (" + s9.toString() + ")";
-        }else if (objects.size() == s10.length() - 9) {
-            sql = "insert into " + nameTable + " (" + name.replace("]]", "") + ")  " + "values" + " (" + s10.toString() + ")";
-        }else{
-            Assert.notNull(sql,"You must not exceed the maximum number of insert that is equal to 10");
-        }
+        PreparedStatement pstm = con.prepareStatement(sql);
+        executePreparedStatemant(objects, size, pstm);
+        pstm.execute();
+    }
 
-        PreparedStatement stmt = con.prepareStatement(sql);
-        for (int i = 1; i <= objects.size(); i++) {
-            if (objects != null) {
-                stmt.setObject(i, objects.get(i - 1));
+    private static String getReplaceColumn(Map<String, String> map) {
+        String name = String.valueOf(map.keySet()).replace("[[", "");
+        return name.replace("]]", "");
+    }
+
+    private static String executeSqlInsert(String nameTable, String replace, String sql, int size) {
+        for (int i = 1; i <= size; i++) {
+            if (i == size) {
+                String substring = values.substring(i);
+                int total = values.length() - substring.length();
+                String missingValue = values.substring(substring.length() - total + 1);
+
+                sql = "insert into " + nameTable + " (" + replace + ")  " + "values" + " (" + missingValue + ")";
             }
         }
-        stmt.execute();
+        return sql;
+    }
+
+    private static void executePreparedStatemant(List<Object> objects, int size, PreparedStatement pstm) throws SQLException {
+        for (int j = 1; j <= size; j++) {
+            if (objects != null) {
+                pstm.setObject(j, objects.get(j - 1));
+            }
+        }
     }
 
     public static void selectTable(String nomeTable) throws SQLException {

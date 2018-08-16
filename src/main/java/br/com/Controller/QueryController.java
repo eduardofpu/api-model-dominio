@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/")
-public class ControllerQuery {
+public class QueryController {
 
     @Autowired
     private QueryService serviceQuery;

@@ -19,6 +19,6 @@ public interface AddColumnRepository extends JpaRepository<AddColumn, Long> {
     @Query("select c.id from AddColumn c where c.nameColumn = ?")
     AddColumn findBayIdAddColum(String name);
 
-    @Query("select c.nameColumn from AddColumn c")
-    List<AddColumn> findBayNameColumn();
+    @Query("select c.nameColumn from AddColumn c where c.idTable = ?")
+    List<AddColumn> findBayNameColumn(NameTable id);
 }

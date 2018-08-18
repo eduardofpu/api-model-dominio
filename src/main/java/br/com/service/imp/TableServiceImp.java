@@ -56,7 +56,7 @@ public class TableServiceImp implements TableService {
     @Override
     public Object updateAttributeTable(UpdateTableReq parameter) throws SQLException {
 
-        CreateQuery.updateAttributeTable(parameter);
+        CreateQuery.updateAttributeTable(parameter.getNameTable(), parameter.getAttribute(), parameter.getId(), parameter.getParameter());
         return new UpdateTableReq(parameter.getNameTable(), parameter.getAttribute(), parameter.getId(), parameter.getParameter());
     }
 

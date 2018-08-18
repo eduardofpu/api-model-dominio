@@ -159,12 +159,12 @@ public class CreateQuery {
         return list;
     }
 
-    public static void updateAttributeTable(UpdateTableReq parameter) {
-        String sql = "update " + parameter.getNameTable() + " set "+parameter.getAttribute()+"=? where id=?";
+    public static void updateAttributeTable(String nameTable, String attribute, Long id, String parameter) {
+        String sql = "update " + nameTable + " set "+attribute+"=? where id=?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, parameter.getParameter());
-            stmt.setLong(2, parameter.getId());
+            stmt.setString(1, parameter);
+            stmt.setLong(2, id);
             stmt.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

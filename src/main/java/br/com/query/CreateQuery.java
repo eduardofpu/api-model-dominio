@@ -160,7 +160,7 @@ public class CreateQuery {
     }
 
     public static void updateAttributeTable(String nameTable, String attribute, Long id, String parameter) {
-        String sql = "update " + nameTable + " set "+attribute+"=? where id=?";
+        String sql = "update " + nameTable + " set "+attribute+"= ? where id = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, parameter);
@@ -180,7 +180,7 @@ public class CreateQuery {
 
         int size = objects.size();
 
-        String sql = "update " + nameTable + " set "+values+" where id=?";
+        String sql = "update " + nameTable + " set "+values+" where id = ?";
         try {
             PreparedStatement pstm = con.prepareStatement(sql);
             executePreparedStatemant(objects, size, pstm);
@@ -194,7 +194,7 @@ public class CreateQuery {
     public static void deleteTable(String nameTable, Long id) {
         try {
             PreparedStatement stmt = con.prepareStatement("delete " +
-                    "from " + nameTable + " where id=?");
+                    "from " + nameTable + " where id = ?");
             stmt.setLong(1, id);
             stmt.execute();
         } catch (SQLException e) {
@@ -265,7 +265,7 @@ public class CreateQuery {
 
     private static String getReplaceColumnUpdate(Map<String, String> map) {
         String replace = getReplaceColumn(map);
-        String atributos = replace.replace(",","=?,");
-        return atributos.concat("=?");
+        String atributos = replace.replace(","," = ?,");
+        return atributos.concat(" = ?");
     }
 }

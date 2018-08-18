@@ -6,16 +6,17 @@ import br.com.repository.NameTableRepository;
 import br.com.service.TableService;
 import br.com.table.NameTable;
 import br.com.table.ObjectParameter;
+import br.com.table.SelectTable;
+import br.com.table.UpdateTableReq;
 import br.com.table.column.AddColumn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class TableServiceImp implements TableService{
+public class TableServiceImp implements TableService {
 
     private NameTableRepository nameTableRepository;
     private AddColumnRepository addColumnRepository;
@@ -27,14 +28,58 @@ public class TableServiceImp implements TableService{
     }
 
     @Override
+    public Object  findAll(String nameTable) throws SQLException {
+        NameTable idNameTable = nameTableRepository.findBayIdNameTable(nameTable);
+        List<AddColumn> objectColumn = addColumnRepository.findBayNameColumn(idNameTable);
+        return new SelectTable(nameTable, CreateQuery.selectTable(nameTable, objectColumn));
+    }
+
+    @Override
+    public SelectTable findById(String nameTable, Long id) throws SQLException {
+
+        NameTable idNameTable = nameTableRepository.findBayIdNameTable(nameTable);
+        List<AddColumn> objectColumn = addColumnRepository.findBayNameColumn(idNameTable);
+        return new SelectTable(nameTable, CreateQuery.selectIdTable(nameTable, objectColumn, id));
+    }
+
+    @Override
     public ObjectParameter insertInto(ObjectParameter parameter) throws SQLException {
 
         NameTable idNameTable = nameTableRepository.findBayIdNameTable(parameter.getNameTable());
 
         List<AddColumn> objectColumn = addColumnRepository.findBayNameColumn(idNameTable);
 
-        CreateQuery.insertInto(parameter.getNameTable(),objectColumn, parameter.getParameters());
+        CreateQuery.insertInto(parameter.getNameTable(), objectColumn, parameter.getParameters());
         return new ObjectParameter(parameter.getNameTable(), parameter.getParameters());
     }
+
+    @Override
+    public Object updateAttributeTable(UpdateTableReq parameter) throws SQLException {
+
+        CreateQuery.updateAttributeTable(parameter);
+        return new UpdateTableReq(parameter.getNameTable(), parameter.getAttribute(), parameter.getId(), parameter.getParameter());
+    }
+
+    @Override
+    public ObjectParameter updateTable(ObjectParameter parameter, Long id) throws SQLException {
+        NameTable idNameTable = nameTableRepository.findBayIdNameTable(parameter.getNameTable());
+
+        List<AddColumn> objectColumn = addColumnRepository.findBayNameColumn(idNameTable);
+
+        CreateQuery.updateTable(parameter.getNameTable(), objectColumn, parameter.getParameters(), id);
+        return new ObjectParameter(parameter.getNameTable(), parameter.getParameters());
+    }
+
+    @Override
+    public void deleteTable(String nameTable, Long id) throws SQLException {
+        CreateQuery.deleteTable(nameTable, id);
+    }
+
+    @Override
+    public void deleteTableAll(String nameTable) throws SQLException {
+        CreateQuery.deleteTableAll(nameTable);
+    }
+
+
 }
 

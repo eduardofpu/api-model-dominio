@@ -1,6 +1,7 @@
 package br.com.query;
 
 import br.com.connection.ConnectionFactory;
+import br.com.table.UpdateTableReq;
 import br.com.table.column.AddColumn;
 
 import java.sql.*;
@@ -19,35 +20,9 @@ public class CreateQuery {
             "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
             "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
             "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
-            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?" ;
+            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
 
-    public static void createSchema(String nameSchema) throws SQLException {
-        System.out.println("Creating schema");
-        stmt = con.createStatement();
-        String sql = "CREATE SCHEMA IF NOT EXISTS " + nameSchema + "";
-
-        stmt.executeUpdate(sql);
-        System.out.println("schema foi criado com sucesso!...");
-    }
-
-    public static void createIndex(String nomeIndex) throws SQLException {
-        System.out.println("Creating index");
-        stmt = con.createStatement();
-        String sql = "CREATE INDEX " + nomeIndex + "_idx ON " + nomeIndex + " (id)";
-
-        stmt.executeUpdate(sql);
-        System.out.println("index foi criado com sucesso!...");
-    }
-
-    public static void createDataBase(String nameDataBase) throws SQLException {
-        System.out.println("Creating table in given database...");
-        stmt = con.createStatement();
-        String sql = "CREATE DATABASE " + nameDataBase + "";
-        stmt.executeUpdate(sql);
-        System.out.println("Created table in given database...");
-    }
-
-    public static void createTable(String nameTable) throws SQLException {
+       public static void createTable(String nameTable) throws SQLException {
 
         String primaryKey = random();
 
@@ -59,18 +34,8 @@ public class CreateQuery {
         System.out.println("Created table in given database...");
     }
 
-    public static String random() {
-        String p = "p";
-        Random r = new Random();
-        String id = String.valueOf(r.nextInt(101));
-        String k = "k";
-        Random rr = new Random();
-        String idd = String.valueOf(rr.nextInt(1001));
-        return p.concat(id).concat(k).concat(idd);
-    }
-
     public static void addConlumnOfTheTable(String nameTable, String nameColumn, String dataType) throws SQLException {
-        System.out.println("Alter Table isert conlum and type ...");
+        System.out.println("Table isert conlum and type ...");
         stmt = con.createStatement();
         String sql = "ALTER TABLE " + nameTable + " ADD " + nameColumn + " " + dataType + "";
         stmt.execute(sql);
@@ -123,7 +88,7 @@ public class CreateQuery {
     public static void dropColumnOfTheTable(String nameTable, String nameColumn) throws SQLException {
         System.out.println("Delete  conlum and table ...");
         stmt = con.createStatement();
-        String sql = "ALTER TABLE " + nameTable + " DROP " + nameColumn + "";
+        String sql = "ALTER TABLE " + nameTable +" DROP "+ nameColumn + " ";
         stmt.executeUpdate(sql);
         System.out.println("Deletede colum in given database...");
     }
@@ -134,14 +99,6 @@ public class CreateQuery {
         String sql = "DROP TABLE " + name + "";
         stmt.executeUpdate(sql);
         System.out.println("drop table com sucesso ...");
-    }
-
-    public static void dropDataBase(String nameDataBase) throws SQLException {
-        System.out.println("Delete  data base and table ...");
-        stmt = con.createStatement();
-        String sql = "DROP DATABASE " + nameDataBase + "";
-        stmt.executeUpdate(sql);
-        System.out.println("Deletede data base ...");
     }
 
     public static void insertInto(String nameTable, List<AddColumn> column, List<Object> objects) throws SQLException {
@@ -160,10 +117,124 @@ public class CreateQuery {
         pstm.execute();
     }
 
-    private static String getReplaceColumn(Map<String, String> map) {
-        String name = String.valueOf(map.keySet()).replace("[[", "");
-        return name.replace("]]", "");
+    public static Object selectIdTable(String nomeTable, List<AddColumn> objectColumn, Long id) throws SQLException {
+
+        PreparedStatement stmt = con.prepareStatement("select * from " + nomeTable + " where id = " + id + "");
+
+        Object object = null;
+        List<Object> list = new ArrayList<>();
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+
+            id = rs.getLong("id");
+            list.add(id);
+            for (int i = 0; i < objectColumn.size(); i++) {
+
+                object = rs.getObject(String.valueOf(objectColumn.get(i)));
+                list.add(object.toString());
+            }
+        }
+        return Arrays.asList(list);
     }
+
+    public static Object selectTable(String nomeTable, List<AddColumn> objectColumn) throws SQLException {
+
+        PreparedStatement stmt = con.prepareStatement("select * from " + nomeTable + "");
+
+        List<Object> list = new ArrayList<>();
+        ResultSet rs = stmt.executeQuery();
+
+        Object object = null;
+        while (rs.next()) {
+
+            Long id = rs.getLong("id");
+            list.add(id);
+
+            for (int i = 0; i < objectColumn.size(); i++) {
+                object = rs.getObject(String.valueOf(objectColumn.get(i)));
+                list.add(object);
+            }
+            continue;
+        }
+        return list;
+    }
+
+    public static void updateAttributeTable(UpdateTableReq parameter) {
+        String sql = "update " + parameter.getNameTable() + " set "+parameter.getAttribute()+"=? where id=?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, parameter.getParameter());
+            stmt.setLong(2, parameter.getId());
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void updateTable(String nameTable, List<AddColumn> column, List<Object> objects, Long id) {
+
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put(String.valueOf(column), String.valueOf(objects));
+
+        String values = getReplaceColumnUpdate(map);
+
+        int size = objects.size();
+
+        String sql = "update " + nameTable + " set "+values+" where id=?";
+        try {
+            PreparedStatement pstm = con.prepareStatement(sql);
+            executePreparedStatemant(objects, size, pstm);
+            pstm.setLong(size+1, id);
+            pstm.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deleteTable(String nameTable, Long id) {
+        try {
+            PreparedStatement stmt = con.prepareStatement("delete " +
+                    "from " + nameTable + " where id=?");
+            stmt.setLong(1, id);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deleteTableAll(String nameTable) {
+        try {
+            PreparedStatement stmt = con.prepareStatement("delete " +
+                    "from " + nameTable + "");
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static void deleteAddColumnId(Long id) {
+        try {
+            PreparedStatement stmt = con.prepareStatement("delete " +
+                    "from  add_column where id_table_id = ?");
+            stmt.setLong(1, id);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static String random() {
+        String p = "p";
+        Random r = new Random();
+        String id = String.valueOf(r.nextInt(101));
+        String k = "k";
+        Random rr = new Random();
+        String idd = String.valueOf(rr.nextInt(1001));
+        return p.concat(id).concat(k).concat(idd);
+    }
+
 
     private static String executeSqlInsert(String nameTable, String replace, String sql, int size) {
         for (int i = 1; i <= size; i++) {
@@ -186,61 +257,15 @@ public class CreateQuery {
         }
     }
 
-    public static void selectTable(String nomeTable) throws SQLException {
-        PreparedStatement stmt = con.prepareStatement("select * from " + nomeTable + "");
 
-        // executa um select
-        ResultSet rs = stmt.executeQuery();
-        // itera no ResultSet
-
-        Map<Object, Object> map = new LinkedHashMap<>();
-
-
-        while (rs.next()) {
-            int cont = 1;
-            cont++;
-            map.put(rs.toString(), cont);
-
-            for (Map.Entry<Object, Object> entry : map.entrySet()) {
-                System.out.println(entry.getKey() + " : " + entry.getValue());
-
-            }
-//            Long id = rs.getLong("id");
-//            String name = rs.getString("name");
-//            System.out.println(id + " _ " + name);
-        }
-
-        rs.close();
-        //stmt.close();
-        //con.close();
+    private static String getReplaceColumn(Map<String, String> map) {
+        String name = String.valueOf(map.keySet()).replace("[[", "");
+        return name.replace("]]", "");
     }
 
-    public static void upadate(String nameTable, String atributo) {
-        String sql = "update " + nameTable + " set name=? where id=?";
-        try {
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, atributo);
-            stmt.setLong(2, 1L);
-            stmt.execute();
-            stmt.close();
-            System.out.println("Alterado id = " + 1L);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    private static String getReplaceColumnUpdate(Map<String, String> map) {
+        String replace = getReplaceColumn(map);
+        String atributos = replace.replace(",","=?,");
+        return atributos.concat("=?");
     }
-
-    public static void remove(String nameTable, Long id) {
-        try {
-            PreparedStatement stmt = con.prepareStatement("delete " +
-                    "from " + nameTable + " where id=?");
-            stmt.setLong(1, id);
-            stmt.execute();
-            //stmt.close();
-            System.out.println("Deletado id = " + id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
 }

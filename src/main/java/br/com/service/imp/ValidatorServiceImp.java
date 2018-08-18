@@ -6,6 +6,7 @@ import br.com.repository.NameTableRepository;
 import br.com.service.ValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 public class ValidatorServiceImp implements ValidatorService {

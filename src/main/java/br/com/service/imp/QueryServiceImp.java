@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class QueryServiceImp implements QueryService {
@@ -37,8 +38,8 @@ public class QueryServiceImp implements QueryService {
     public idColumnResp createColumn(TableColumnDataType parameter) throws SQLException {
 
         NameTable idTable = nameTableRepository.findBayIdNameTable(parameter.getNameTable());
-        CreateQuery.addConlumnOfTheTable(parameter.getNameTable(),parameter.getNameColumn(),parameter.getDataType());
-        AddColumn column = AddColumn.create(parameter.getNameColumn(), parameter.getDataType(), idTable , addColumnRepository);
+        CreateQuery.addConlumnOfTheTable(parameter.getNameTable(), parameter.getNameColumn(), parameter.getDataType());
+        AddColumn column = AddColumn.create(parameter.getNameColumn(), parameter.getDataType(), idTable, addColumnRepository);
         return new idColumnResp(column.getId());
     }
 
@@ -101,7 +102,7 @@ public class QueryServiceImp implements QueryService {
         AddColumn column = AddColumn.updateDataTypeIsColumn(
                 columnId.getId(),
                 columnId.getNameColumn(),
-                columnId.getDataType().replace("NOT NULL",""),
+                columnId.getDataType().replace("NOT NULL", ""),
                 idTable,
                 addColumnRepository,
                 validator);
@@ -110,7 +111,8 @@ public class QueryServiceImp implements QueryService {
 
     @Override
     public void dropColumnOfTheTable(TableColumnReq parameter) throws SQLException {
-        AddColumn columnId = addColumnRepository.findBayIdAddColum(parameter.getNameColumn());
+        NameTable idNameTable = nameTableRepository.findBayIdNameTable(parameter.getNameTable());
+        AddColumn columnId = addColumnRepository.findBayIdTable(parameter.getNameColumn(), idNameTable);
         CreateQuery.dropColumnOfTheTable(parameter.getNameTable(), parameter.getNameColumn());
         AddColumn.deleteColumn(columnId.getId(), addColumnRepository, validator);
     }
@@ -119,7 +121,9 @@ public class QueryServiceImp implements QueryService {
     public void dropTable(NameTableReq parameter) throws SQLException {
 
         NameTable idNameTable = nameTableRepository.findBayIdNameTable(parameter.getNameTable());
-        CreateQuery.dropTable(parameter.getNameTable());
+        CreateQuery.deleteAddColumnId(idNameTable.getId());
         NameTable.deleteTable(idNameTable.getId(), nameTableRepository, validator);
+        CreateQuery.dropTable(parameter.getNameTable());
+
     }
 }

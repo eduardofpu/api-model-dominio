@@ -5,8 +5,11 @@ import java.util.List;
 public class Palavra {
 
     public static void main(String[] args) {
-        List<Integer> listar = listar();
-        System.out.println(listar);
+       // List<Integer> listar = listar();
+        //System.out.println(listar);
+        //missiValues();
+
+        values();
     }
 
     public static void values() {

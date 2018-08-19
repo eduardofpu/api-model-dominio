@@ -31,7 +31,7 @@ public class TableServiceImp implements TableService {
     public Object  findAll(String nameTable) throws SQLException {
         NameTable idNameTable = nameTableRepository.findBayIdNameTable(nameTable);
         List<AddColumn> objectColumn = addColumnRepository.findBayNameColumn(idNameTable);
-        return new SelectTable(nameTable, CreateQuery.selectTable(nameTable, objectColumn));
+        return new SelectTable(nameTable, CreateQuery.selectRg(nameTable, objectColumn));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class TableServiceImp implements TableService {
 
         NameTable idNameTable = nameTableRepository.findBayIdNameTable(nameTable);
         List<AddColumn> objectColumn = addColumnRepository.findBayNameColumn(idNameTable);
-        return new SelectTable(nameTable, CreateQuery.selectIdTable(nameTable, objectColumn, id));
+        return new SelectTable(nameTable, CreateQuery.selectIdRg(nameTable, objectColumn, id));
     }
 
     @Override
@@ -54,32 +54,30 @@ public class TableServiceImp implements TableService {
     }
 
     @Override
-    public Object updateAttributeTable(UpdateTableReq parameter) throws SQLException {
+    public Object updateAttributeRg(UpdateTableReq parameter) throws SQLException {
 
-        CreateQuery.updateAttributeTable(parameter.getNameTable(), parameter.getAttribute(), parameter.getId(), parameter.getParameter());
+        CreateQuery.updateAttributeRg(parameter.getNameTable(), parameter.getAttribute(), parameter.getId(), parameter.getParameter());
         return new UpdateTableReq(parameter.getNameTable(), parameter.getAttribute(), parameter.getId(), parameter.getParameter());
     }
 
     @Override
-    public ObjectParameter updateTable(ObjectParameter parameter, Long id) throws SQLException {
+    public ObjectParameter updateRg(ObjectParameter parameter, Long id) throws SQLException {
         NameTable idNameTable = nameTableRepository.findBayIdNameTable(parameter.getNameTable());
 
         List<AddColumn> objectColumn = addColumnRepository.findBayNameColumn(idNameTable);
 
-        CreateQuery.updateTable(parameter.getNameTable(), objectColumn, parameter.getParameters(), id);
+        CreateQuery.updateRg(parameter.getNameTable(), objectColumn, parameter.getParameters(), id);
         return new ObjectParameter(parameter.getNameTable(), parameter.getParameters());
     }
 
     @Override
-    public void deleteTable(String nameTable, Long id) throws SQLException {
-        CreateQuery.deleteTable(nameTable, id);
+    public void deleteRg(String nameTable, Long id) throws SQLException {
+        CreateQuery.deleteRg(nameTable, id);
     }
 
     @Override
-    public void deleteTableAll(String nameTable) throws SQLException {
-        CreateQuery.deleteTableAll(nameTable);
+    public void deleteRgAll(String nameTable) throws SQLException {
+        CreateQuery.deleteRgAll(nameTable);
     }
-
-
 }
 

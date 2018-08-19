@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.util.List;
 
 @Service
 public class QueryServiceImp implements QueryService {
@@ -121,7 +120,7 @@ public class QueryServiceImp implements QueryService {
     public void dropTable(NameTableReq parameter) throws SQLException {
 
         NameTable idNameTable = nameTableRepository.findBayIdNameTable(parameter.getNameTable());
-        CreateQuery.deleteAddColumnId(idNameTable.getId());
+        CreateQuery.deleteAddColumnIdTable(idNameTable.getId());
         NameTable.deleteTable(idNameTable.getId(), nameTableRepository, validator);
         CreateQuery.dropTable(parameter.getNameTable());
 

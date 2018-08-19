@@ -117,7 +117,7 @@ public class CreateQuery {
         pstm.execute();
     }
 
-    public static Object selectIdTable(String nomeTable, List<AddColumn> objectColumn, Long id) throws SQLException {
+    public static Object selectIdRg(String nomeTable, List<AddColumn> objectColumn, Long id) throws SQLException {
 
         PreparedStatement stmt = con.prepareStatement("select * from " + nomeTable + " where id = " + id + "");
 
@@ -137,7 +137,7 @@ public class CreateQuery {
         return Arrays.asList(list);
     }
 
-    public static Object selectTable(String nomeTable, List<AddColumn> objectColumn) throws SQLException {
+    public static Object selectRg(String nomeTable, List<AddColumn> objectColumn) throws SQLException {
 
         PreparedStatement stmt = con.prepareStatement("select * from " + nomeTable + "");
 
@@ -159,7 +159,7 @@ public class CreateQuery {
         return list;
     }
 
-    public static void updateAttributeTable(String nameTable, String attribute, Long id, String parameter) {
+    public static void updateAttributeRg(String nameTable, String attribute, Long id, String parameter) {
         String sql = "update " + nameTable + " set "+attribute+"= ? where id = ?";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -171,7 +171,7 @@ public class CreateQuery {
         }
     }
 
-    public static void updateTable(String nameTable, List<AddColumn> column, List<Object> objects, Long id) {
+    public static void updateRg(String nameTable, List<AddColumn> column, List<Object> objects, Long id) {
 
         Map<String, String> map = new LinkedHashMap<>();
         map.put(String.valueOf(column), String.valueOf(objects));
@@ -191,7 +191,7 @@ public class CreateQuery {
         }
     }
 
-    public static void deleteTable(String nameTable, Long id) {
+    public static void deleteRg(String nameTable, Long id) {
         try {
             PreparedStatement stmt = con.prepareStatement("delete " +
                     "from " + nameTable + " where id = ?");
@@ -202,7 +202,7 @@ public class CreateQuery {
         }
     }
 
-    public static void deleteTableAll(String nameTable) {
+    public static void deleteRgAll(String nameTable) {
         try {
             PreparedStatement stmt = con.prepareStatement("delete " +
                     "from " + nameTable + "");
@@ -213,7 +213,7 @@ public class CreateQuery {
     }
 
 
-    public static void deleteAddColumnId(Long id) {
+    public static void deleteAddColumnIdTable(Long id) {
         try {
             PreparedStatement stmt = con.prepareStatement("delete " +
                     "from  add_column where id_table_id = ?");
@@ -235,7 +235,6 @@ public class CreateQuery {
         return p.concat(id).concat(k).concat(idd);
     }
 
-
     private static String executeSqlInsert(String nameTable, String replace, String sql, int size) {
         for (int i = 1; i <= size; i++) {
             if (i == size) {
@@ -256,7 +255,6 @@ public class CreateQuery {
             }
         }
     }
-
 
     private static String getReplaceColumn(Map<String, String> map) {
         String name = String.valueOf(map.keySet()).replace("[[", "");

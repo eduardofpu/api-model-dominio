@@ -10,9 +10,9 @@ public interface TableService {
    Object  findAll(String nameTable) throws SQLException;
    SelectTable findById(String nameTable, Long id) throws SQLException;
    ObjectParameter insertInto(ObjectParameter parameter) throws SQLException;
-   Object updateAttributeTable(UpdateTableReq parameter) throws SQLException;
-   ObjectParameter updateTable(ObjectParameter parameter, Long id) throws SQLException;
-   void deleteTable(String nameTable, Long id) throws SQLException;
-   void deleteTableAll(String nameTable) throws SQLException;
+   Object updateAttributeRg(UpdateTableReq parameter) throws SQLException;
+   ObjectParameter updateRg(ObjectParameter parameter, Long id) throws SQLException;
+   void deleteRg(String nameTable, Long id) throws SQLException;
+   void deleteRgAll(String nameTable) throws SQLException;
 
 }

@@ -41,25 +41,25 @@ public class TableController {
 
     @PutMapping(path = "update")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Object updateAttributeTable(@RequestBody UpdateTableReq parameter) throws SQLException {
-        return tableService.updateAttributeTable(parameter);
+    public Object updateAttributeRg(@RequestBody UpdateTableReq parameter) throws SQLException {
+        return tableService.updateAttributeRg(parameter);
     }
 
     @PutMapping(path = "update/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ObjectParameter updateTable(@RequestBody ObjectParameter parameter,@PathVariable("id") Long id) throws SQLException {
-        return tableService.updateTable(parameter, id);
+    public ObjectParameter updateRg(@RequestBody ObjectParameter parameter,@PathVariable("id") Long id) throws SQLException {
+        return tableService.updateRg(parameter, id);
     }
 
     @DeleteMapping(path = "delete/{nameTable}/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteTable(@PathVariable("nameTable") String nameTable, @PathVariable("id") Long id) throws SQLException {
-        tableService.deleteTable(nameTable, id);
+    public void deleteRg(@PathVariable("nameTable") String nameTable, @PathVariable("id") Long id) throws SQLException {
+        tableService.deleteRg(nameTable, id);
     }
 
     @DeleteMapping(path = "delete/{nameTable}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteTableAll(@PathVariable("nameTable") String nameTable) throws SQLException {
-        tableService.deleteTableAll(nameTable);
+    public void deleteRgAll(@PathVariable("nameTable") String nameTable) throws SQLException {
+        tableService.deleteRgAll(nameTable);
     }
 }

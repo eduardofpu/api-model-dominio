@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <description>Api-table/</description>
+    <description>api/</description>
 
     <dependencies> <!--Para trabalhar spring boot-->
         <dependency>
@@ -87,7 +87,7 @@
     </dependencies>
 
     <build>
-        <finalName>api-table</finalName>
+        <finalName>api</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

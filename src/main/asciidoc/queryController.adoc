@@ -1,0 +1,18 @@
+
+== Contato
+
+=== Create Table
+include::{snippets}/create-table/http-request.adoc[]
+include::{snippets}/create-table/http-response.adoc[]
+
+=== Create Column
+include::{snippets}/create-column/http-request.adoc[]
+include::{snippets}/create-column/http-response.adoc[]
+
+=== Add Constraint NotNull Conlumn
+include::{snippets}/add-constraint-not-null-conlumn/http-request.adoc[]
+include::{snippets}/add-constraint-not-null-conlumn/http-response.adoc[]
+
+=== Drop Table
+include::{snippets}/drop-table/http-request.adoc[]
+include::{snippets}/drop-table/http-response.adoc[]

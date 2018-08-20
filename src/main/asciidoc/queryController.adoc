@@ -5,6 +5,15 @@
 include::{snippets}/create-table/http-request.adoc[]
 include::{snippets}/create-table/http-response.adoc[]
 
+=== Alter Table
+include::{snippets}/alter-table/http-request.adoc[]
+include::{snippets}/alter-table/http-response.adoc[]
+
+
+=== Alter Data Type Column
+include::{snippets}/alter-data-type-column/http-request.adoc[]
+include::{snippets}/alter-data-type-column/http-response.adoc[]
+
 === Create Column
 include::{snippets}/create-column/http-request.adoc[]
 include::{snippets}/create-column/http-response.adoc[]
@@ -12,6 +21,14 @@ include::{snippets}/create-column/http-response.adoc[]
 === Add Constraint NotNull Conlumn
 include::{snippets}/add-constraint-not-null-conlumn/http-request.adoc[]
 include::{snippets}/add-constraint-not-null-conlumn/http-response.adoc[]
+
+=== Drop Constraint Not Null Conlumn
+include::{snippets}/drop-constraint-not-null-conlumn/http-request.adoc[]
+include::{snippets}/drop-constraint-not-null-conlumn/http-response.adoc[]
+
+=== Drop Column Of The Table
+include::{snippets}/drop-column-of-the-table/http-request.adoc[]
+include::{snippets}/drop-column-of-the-table/http-response.adoc[]
 
 === Drop Table
 include::{snippets}/drop-table/http-request.adoc[]

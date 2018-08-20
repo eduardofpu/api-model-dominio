@@ -117,6 +117,18 @@ public class CreateQuery {
         pstm.execute();
     }
 
+    public static Object selectId(String nomeTable, String column, String parameter) throws SQLException {
+
+        PreparedStatement stmt = con.prepareStatement("select id from " + nomeTable + "  where "+column+" = '"+parameter+"'");
+
+        Long cod = null;
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+             cod = rs.getLong("id");
+        }
+        return cod;
+    }
+
     public static Object selectIdRg(String nomeTable, List<AddColumn> objectColumn, Long id) throws SQLException {
 
         PreparedStatement stmt = con.prepareStatement("select * from " + nomeTable + " where id = " + id + "");

@@ -1,0 +1,27 @@
+=== Find All
+include::{snippets}/find-all/http-request.adoc[]
+include::{snippets}/find-all/http-response.adoc[]
+
+=== Find By Id
+include::{snippets}/find-by-id/http-request.adoc[]
+include::{snippets}/find-by-id/http-response.adoc[]
+
+=== Insert Into Table
+include::{snippets}/insert-into/http-request.adoc[]
+include::{snippets}/insert-into/http-response.adoc[]
+
+=== Update Attribute Rg
+include::{snippets}/update-attribute-rg/http-request.adoc[]
+include::{snippets}/update-attribute-rg/http-response.adoc[]
+
+=== Update Rg
+include::{snippets}/update-rg/http-request.adoc[]
+include::{snippets}/update-rg/http-response.adoc[]
+
+=== Delete Rg
+include::{snippets}/delete-rg/http-request.adoc[]
+include::{snippets}/delete-rg/http-response.adoc[]
+
+=== Delete Rg All
+include::{snippets}/delete-rg-all/http-request.adoc[]
+include::{snippets}/delete-rg-all/http-response.adoc[]

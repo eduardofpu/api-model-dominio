@@ -43,4 +43,5 @@ Os códigos HTTP suportados são:
 Os recursos da API V1 são detalhados nesta seção.
 
 include::queryController.adoc[]
+include::tableController.adoc[]
 

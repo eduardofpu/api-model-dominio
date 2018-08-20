@@ -52,13 +52,18 @@ public class QueryControllerTest extends AbstractTest {
                 .getResponse()
                 .getContentAsString();
 
+        Assertions.assertThat(NAME_TABLE).isEqualTo("nameTable");
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+
         drop_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
     }
 
     @Test
     public void alterTable() throws Exception {
 
         create_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
 
         Map<String, String> data = new HashMap<>();
         data.put(NAME_CURRENT, NAME_TABLE_CONTATO);
@@ -74,13 +79,18 @@ public class QueryControllerTest extends AbstractTest {
                 .getResponse()
                 .getContentAsString();
 
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_TABLE_CIDADE).isEqualTo("cidade");
+
         drop_table(nameTableReq2);
+        Assertions.assertThat(nameTableReq2.getNameTable()).isEqualTo("cidade");
     }
 
     @Test
     public void createColumn() throws Exception {
 
         create_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
 
         Map<String, String> data = mapData();
 
@@ -94,13 +104,19 @@ public class QueryControllerTest extends AbstractTest {
                 .getResponse()
                 .getContentAsString();
 
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
+        Assertions.assertThat(DATA_TYPE_TEXT).isEqualTo("text");
+
         drop_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
     }
 
     @Test
     public void alterDataTypeColumn() throws Exception {
 
         create_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
 
         Map<String, String> data = mapData();
 
@@ -113,6 +129,10 @@ public class QueryControllerTest extends AbstractTest {
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
+
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
+        Assertions.assertThat(DATA_TYPE_TEXT).isEqualTo("text");
 
         Map<String, String> data2 = new HashMap<>();
         data2.put(NAME_TABLE, NAME_TABLE_CONTATO);
@@ -129,13 +149,19 @@ public class QueryControllerTest extends AbstractTest {
                 .getResponse()
                 .getContentAsString();
 
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
+        Assertions.assertThat(DATA_TYPE_VARCHAR).isEqualTo("VARCHAR(45)");
+
         drop_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
     }
 
     @Test
     public void addConstraintNotNullConlumn() throws Exception {
 
         create_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
 
         Map<String, String> data = mapData();
 
@@ -149,6 +175,10 @@ public class QueryControllerTest extends AbstractTest {
                 .getResponse()
                 .getContentAsString();
 
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
+        Assertions.assertThat(DATA_TYPE_TEXT).isEqualTo("text");
+
         Map<String, String> data2 = mapData2();
 
         this.mockMvc.perform(MockMvcRequestBuilders.put(PATH + "add/not/null")
@@ -161,13 +191,18 @@ public class QueryControllerTest extends AbstractTest {
                 .getResponse()
                 .getContentAsString();
 
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
+
         drop_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
     }
 
     @Test
     public void dropConstraintNotNullConlumn() throws Exception {
 
         create_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
 
         Map<String, String> data = mapData();
 
@@ -181,6 +216,10 @@ public class QueryControllerTest extends AbstractTest {
                 .getResponse()
                 .getContentAsString();
 
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
+        Assertions.assertThat(DATA_TYPE_TEXT).isEqualTo("text");
+
         Map<String, String> data2 = mapData2();
 
         this.mockMvc.perform(MockMvcRequestBuilders.put(PATH + "add/not/null")
@@ -192,6 +231,9 @@ public class QueryControllerTest extends AbstractTest {
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
+
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
 
         Map<String, String> data3 = new HashMap<>();
         data3.put(NAME_TABLE, NAME_TABLE_CONTATO);
@@ -207,13 +249,18 @@ public class QueryControllerTest extends AbstractTest {
                 .getResponse()
                 .getContentAsString();
 
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
+
         drop_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
     }
 
     @Test
     public void dropColumnOfTheTable() throws Exception {
 
         create_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
 
         Map<String, String> data = mapData();
 
@@ -227,6 +274,10 @@ public class QueryControllerTest extends AbstractTest {
                 .getResponse()
                 .getContentAsString();
 
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
+        Assertions.assertThat(DATA_TYPE_TEXT).isEqualTo("text");
+
         Map<String, String> data2 = mapData2();
 
         this.mockMvc.perform(MockMvcRequestBuilders.delete(PATH + "drop/column")
@@ -238,23 +289,28 @@ public class QueryControllerTest extends AbstractTest {
                 .getResponse()
                 .getContentAsString();
 
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
+
         drop_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
     }
 
     @Test
     public void dropTable() throws Exception {
 
         create_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
 
         Map<String, String> data = new HashMap<>();
         data.put("nameTable", NAME_TABLE_CONTATO);
-
-        Assertions.assertThat(NAME_TABLE_CONTATO).isNotNull();
 
         this.mockMvc.perform(MockMvcRequestBuilders.delete(PATH + "drop/table")
                 .contentType(APPLICATION_JSON)
                 .content(JSONObject.toJSONString(data)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
     }
 
     private void create_table(NameTableReq nameTableReq) throws SQLException {

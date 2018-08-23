@@ -14,5 +14,4 @@ public interface TableService {
    ObjectParameter updateRg(ObjectParameter parameter, Long id) throws SQLException;
    void deleteRg(String nameTable, Long id) throws SQLException;
    void deleteRgAll(String nameTable) throws SQLException;
-
 }

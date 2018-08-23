@@ -32,8 +32,6 @@ public class TableControllerTest extends AbstractTest {
     private final String NAME_COLUMN = "nameColumn";
     private final String DATA_TYPE = "dataType";
     private final String ATTRIBUTE = "attribute";
-    private final String NAME_CURRENT = "nameCurrent";
-    private final String NAME_MODIFIED = "nameModified";
     private final String PARAMETERS = "parameters";
     private final String PARAMETER = "parameter";
     private final String ID = "id";
@@ -79,6 +77,7 @@ public class TableControllerTest extends AbstractTest {
 
     @Test
     public void findById() throws Exception {
+
 
         create_table(nameTableReq);
         Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");

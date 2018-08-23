@@ -4,8 +4,11 @@ import br.Application;
 import br.com.repository.AddColumnRepository;
 import br.com.repository.NameTableRepository;
 import br.com.service.QueryService;
+import br.com.service.TableService;
+import br.com.service.ValidatorService;
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,6 +46,15 @@ public abstract class AbstractTest {
 
     @Autowired
     protected QueryService queryService;
+
+    @Autowired
+    protected TableService tableService;
+
+    @Autowired
+    protected ValidatorService validatorService;
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     protected MockMvc mockMvc;
 

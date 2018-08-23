@@ -1,7 +1,10 @@
 # Descrição do problema 
 
 ```sh
-Objetivo do projeto é demostrar como criar uma connexão utilizando connection
+Objetivo do projeto é fornecer uma api para um desenvolvedor front end 
+criar um modelo de domínio sem precisar de um back end
+ex: É possível criar tabelas no sgbd, exclui-las, adicionar colunas, data type e outros.
+para mais detalhes acesse a documentação, mais detalhes no tópico 4. Documentção via Rest Doc
 ```
  
 ## 1. Dependências
@@ -10,9 +13,9 @@ Instalar as seguintes ferramentas:
 
     1. JDK 1.8
     2. Maven
-    3. Docker compose
+    3. Docker compose   
     
-O projeto utiliza um banco embarcado (Postgres) para desenvolvimento.
+O projeto utiliza o sgbd (Postgres) .
  
 ## 2. Executando o Projeto
  IDEA Intellij pode ser recomendado
@@ -20,7 +23,7 @@ Após baixar o projeto, para executá-lo é necessário rodar os seguintes coman
 
 ```sh
 $ docker-compose up   
-utilize a classe Application para testar os métodos da classe CreateQuery
+
 ```
 
 ## 3.Encerrar o docker
@@ -28,3 +31,13 @@ utilize a classe Application para testar os métodos da classe CreateQuery
 $ docker-compose down
 
 ```
+
+## 4.Documentação via Rest Doc
+Rode o comando mvn apos rodar o docker-compose
+```sh
+$ mvn clean install
+
+```
+Acesse a pasta target/generated-docs/index.html
+clique em index.html com o botão direito para abrir o browser
+e veja a documentação.

@@ -4,7 +4,7 @@
 Objetivo do projeto é fornecer uma api para um desenvolvedor front end 
 criar um modelo de domínio sem precisar de um back end
 ex: É possível criar tabelas no sgbd, exclui-las, adicionar colunas, data type e outros.
-para mais detalhes acesse a documentação, mais detalhes no tópico 4. Documentção via Rest Doc
+para mais detalhes acesse o tópico 4. Documentção via Rest Doc
 ```
  
 ## 1. Dependências

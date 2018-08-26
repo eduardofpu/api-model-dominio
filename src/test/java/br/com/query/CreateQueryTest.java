@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CreateQueryTest extends AbstractTest {
+
     private final String NAME_TABLE_CONTATO = "contato";
     private final String NAME_TABLE_CIDADE = "cidade";
     private final String NAME_COLUMN = "name";
@@ -28,8 +29,8 @@ public class CreateQueryTest extends AbstractTest {
     private ObjectParameter parameter2 = new ObjectParameter(NAME_TABLE_CONTATO, Arrays.asList("Kuririn"));
     private ObjectParameter parameter3 = new ObjectParameter(NAME_TABLE_CONTATO, Arrays.asList("Mestre Kame"));
     private ObjectParameter parameter4 = new ObjectParameter(NAME_TABLE_CONTATO, Arrays.asList("Titi"));
-    private TableColumnDataType columnDataType = new TableColumnDataType(NAME_TABLE_CONTATO, NAME_COLUMN, DATA_TYPE);
 
+    private TableColumnDataType columnDataType = new TableColumnDataType(NAME_TABLE_CONTATO, NAME_COLUMN, DATA_TYPE);
 
     @Test
     public void createTable() throws SQLException {
@@ -63,7 +64,6 @@ public class CreateQueryTest extends AbstractTest {
         CreateQuery.alterDataTypeIsNameColumn(NAME_TABLE_CONTATO, NAME_COLUMN, DATA_TYPE_VAR);
 
         deleteTable(NAME_TABLE_CONTATO);
-
     }
 
     @Test

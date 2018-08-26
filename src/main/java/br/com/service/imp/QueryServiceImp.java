@@ -28,7 +28,8 @@ public class QueryServiceImp implements QueryService {
 
     @Override
     public idTableResp createTable(NameTableReq nameTable) throws SQLException {
-        CreateQuery.createTable(nameTable.getNameTable());
+        String name = validator.verifyIfNameAlredyExists(nameTable.getNameTable());
+        CreateQuery.createTable(name);
         NameTable table = NameTable.create(nameTable.getNameTable(), nameTableRepository);
         return new idTableResp(table.getId());
     }
@@ -36,26 +37,33 @@ public class QueryServiceImp implements QueryService {
     @Override
     public idColumnResp createColumn(TableColumnDataType parameter) throws SQLException {
 
+        String name = validator.verifyNameDoesNotExist(parameter.getNameTable());
         NameTable idTable = nameTableRepository.findBayIdNameTable(parameter.getNameTable());
-        CreateQuery.addConlumnOfTheTable(parameter.getNameTable(), parameter.getNameColumn(), parameter.getDataType());
-        AddColumn column = AddColumn.create(parameter.getNameColumn(), parameter.getDataType(), idTable, addColumnRepository);
+
+        String columnName = parameter.getNameColumn();
+        String nameColumn = validator.verifyNameColumn(parameter.getNameTable(),idTable, columnName);
+
+        CreateQuery.addConlumnOfTheTable(name, nameColumn, parameter.getDataType());
+        AddColumn column = AddColumn.create(nameColumn, parameter.getDataType(), idTable, addColumnRepository);
         return new idColumnResp(column.getId());
     }
 
     @Override
     public idTableResp updateNameTable(CurrentModified parameter) throws SQLException {
-        NameTable idNameTable = nameTableRepository.findBayIdNameTable(parameter.getNameCurrent());
-        CreateQuery.alterTable(parameter.getNameCurrent(), parameter.getNameModified());
+        String name = validator.verifyNameDoesNotExist(parameter.getNameCurrent());
+        NameTable idNameTable = nameTableRepository.findBayIdNameTable(name);
+        CreateQuery.alterTable(name, parameter.getNameModified());
         NameTable table = NameTable.updateTable(idNameTable.getId(), parameter.getNameModified(), nameTableRepository, validator);
         return new idTableResp(table.getId());
     }
 
     @Override
     public idColumnResp updateNameDataTypeIsNameConlumn(TableColumnDataType parameter) throws SQLException {
+        String name = validator.verifyNameDoesNotExist(parameter.getNameTable());
         AddColumn idColumn = addColumnRepository.findBayIdAddColum(parameter.getNameColumn());
         NameTable idTable = addColumnRepository.findBayIdNameDataType(parameter.getNameColumn());
 
-        CreateQuery.alterDataTypeIsNameColumn(parameter.getNameTable(), parameter.getNameColumn(), parameter.getDataType());
+        CreateQuery.alterDataTypeIsNameColumn(name, parameter.getNameColumn(), parameter.getDataType());
         AddColumn column = AddColumn.updateDataTypeIsColumn(
                 idColumn.getId(),
                 parameter.getNameColumn(),
@@ -69,11 +77,12 @@ public class QueryServiceImp implements QueryService {
     @Override
     public idColumnResp addConstraintNotNullConlumn(TableColumnReq parameter) throws SQLException {
 
+        String name = validator.verifyNameDoesNotExist(parameter.getNameTable());
         NameTable idTable = addColumnRepository.findBayIdNameDataType(parameter.getNameColumn());
 
         AddColumn columnId = addColumnRepository.findBayAddColum(parameter.getNameColumn());
 
-        CreateQuery.addConstraintNotNullConlumn(parameter.getNameTable(), parameter.getNameColumn());
+        CreateQuery.addConstraintNotNullConlumn(name, parameter.getNameColumn());
         AddColumn column = AddColumn.updateDataTypeIsColumn(
                 columnId.getId(),
                 columnId.getNameColumn(),
@@ -86,18 +95,21 @@ public class QueryServiceImp implements QueryService {
 
     @Override
     public NameT1IsT2 addForeignKey(NameT1IsT2 parameter) throws SQLException {
+        String name1 = validator.verifyNameDoesNotExist(parameter.getNameTable1());
+        String name2 = validator.verifyNameDoesNotExist(parameter.getNameTable2());
 
-        CreateQuery.addForeignKey(parameter.getNameTable1(), parameter.getNameTable2());
-        return new NameT1IsT2(parameter.getNameTable1(), parameter.getNameTable2());
+        CreateQuery.addForeignKey(name1, name2);
+        return new NameT1IsT2(name1, name2);
     }
 
     @Override
     public idColumnResp dropConstraintNotNullConlumn(TableColumnReq parameter) throws SQLException {
+        String name = validator.verifyNameDoesNotExist(parameter.getNameTable());
         NameTable idTable = addColumnRepository.findBayIdNameDataType(parameter.getNameColumn());
 
         AddColumn columnId = addColumnRepository.findBayAddColum(parameter.getNameColumn());
 
-        CreateQuery.dropConstraintNotNullConlumn(parameter.getNameTable(), parameter.getNameColumn());
+        CreateQuery.dropConstraintNotNullConlumn(name, parameter.getNameColumn());
         AddColumn column = AddColumn.updateDataTypeIsColumn(
                 columnId.getId(),
                 columnId.getNameColumn(),
@@ -110,19 +122,20 @@ public class QueryServiceImp implements QueryService {
 
     @Override
     public void dropColumnOfTheTable(TableColumnReq parameter) throws SQLException {
-        NameTable idNameTable = nameTableRepository.findBayIdNameTable(parameter.getNameTable());
+        String name = validator.verifyNameDoesNotExist(parameter.getNameTable());
+        NameTable idNameTable = nameTableRepository.findBayIdNameTable(name);
         AddColumn columnId = addColumnRepository.findBayIdTable(parameter.getNameColumn(), idNameTable);
-        CreateQuery.dropColumnOfTheTable(parameter.getNameTable(), parameter.getNameColumn());
+        CreateQuery.dropColumnOfTheTable(name, parameter.getNameColumn());
         AddColumn.deleteColumn(columnId.getId(), addColumnRepository, validator);
     }
 
     @Override
     public void dropTable(NameTableReq parameter) throws SQLException {
-
-        NameTable idNameTable = nameTableRepository.findBayIdNameTable(parameter.getNameTable());
+        String name = validator.verifyNameDoesNotExist(parameter.getNameTable());
+        NameTable idNameTable = nameTableRepository.findBayIdNameTable(name);
         CreateQuery.deleteAddColumnIdTable(idNameTable.getId());
         NameTable.deleteTable(idNameTable.getId(), nameTableRepository, validator);
-        CreateQuery.dropTable(parameter.getNameTable());
+        CreateQuery.dropTable(name);
 
     }
 }

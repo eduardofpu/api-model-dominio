@@ -37,6 +37,9 @@ Os códigos HTTP suportados são:
 | `202 Accepted`
 | O novo recurso foi aceito com sucesso
 
+| `500 Internal Server Error`
+| Uma mensagem de erro genérica, dada quando nenhuma mensagem mais específica é adequada
+
 |===
 
 = Recursos - Controlador

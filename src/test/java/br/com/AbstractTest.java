@@ -24,6 +24,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.sql.SQLException;
+
 @WebAppConfiguration
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -59,7 +61,7 @@ public abstract class AbstractTest {
     protected MockMvc mockMvc;
 
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
 
         documentationResultHandler = MockMvcRestDocumentation.document("{method-name}",
                 Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),

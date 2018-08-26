@@ -60,6 +60,21 @@ public class QueryControllerTest extends AbstractTest {
     }
 
     @Test
+    public void internalServerError() throws Exception {
+        create_table(nameTableReq);
+        Map<String, String> data = new HashMap<>();
+        data.put(NAME_TABLE, NAME_TABLE_CONTATO);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post(PATH + "create/table")
+                .contentType(APPLICATION_JSON)
+                .content(JSONObject.toJSONString(data)))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError());
+
+        drop_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
+    }
+
+    @Test
     public void alterTable() throws Exception {
 
         create_table(nameTableReq);
@@ -107,6 +122,50 @@ public class QueryControllerTest extends AbstractTest {
         Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
         Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
         Assertions.assertThat(DATA_TYPE_TEXT).isEqualTo("text");
+
+        drop_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
+    }
+
+    @Test
+    public void createColumnInternalErrorIsTableContatoNotExist() throws Exception {
+
+        Map<String, String> data = mapData();
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post(PATH + "add/column")
+                .contentType(APPLICATION_JSON)
+                .content(JSONObject.toJSONString(data)))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError());
+
+    }
+
+    @Test
+    public void createColumnInternalIfNameColumnExist() throws Exception {
+        create_table(nameTableReq);
+        Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
+
+        Map<String, String> data = mapData();
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post(PATH + "add/column")
+                .contentType(APPLICATION_JSON)
+                .content(JSONObject.toJSONString(data)))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(jsonPath("id", Matchers.notNullValue()))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        Assertions.assertThat(NAME_TABLE_CONTATO).isEqualTo("contato");
+        Assertions.assertThat(NAME_COLUMN_NAME).isEqualTo("name");
+        Assertions.assertThat(DATA_TYPE_TEXT).isEqualTo("text");
+
+        Map<String, String> data2 = mapData();
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post(PATH + "add/column")
+                .contentType(APPLICATION_JSON)
+                .content(JSONObject.toJSONString(data2)))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError());
 
         drop_table(nameTableReq);
         Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
@@ -328,6 +387,7 @@ public class QueryControllerTest extends AbstractTest {
         data.put(DATA_TYPE, DATA_TYPE_TEXT);
         return data;
     }
+
 
     private Map<String, String> mapData2() {
         Map<String, String> data2 = new HashMap<>();

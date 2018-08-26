@@ -30,6 +30,7 @@ public class TableController {
     @GetMapping(path = "get/{nameTable}/{id}")
     @ResponseStatus(HttpStatus.OK)
     public SelectTable findById(@PathVariable("nameTable") String nameTable, @PathVariable("id") Long id) throws SQLException {
+
         return tableService.findById(nameTable, id);
     }
 

@@ -5,6 +5,10 @@
 include::{snippets}/create-table/http-request.adoc[]
 include::{snippets}/create-table/http-response.adoc[]
 
+=== Internal Server Error table exists
+include::{snippets}/internal-server-error/http-request.adoc[]
+include::{snippets}/internal-server-error/http-response.adoc[]
+
 === Alter Table
 include::{snippets}/alter-table/http-request.adoc[]
 include::{snippets}/alter-table/http-response.adoc[]

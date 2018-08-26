@@ -1,12 +1,16 @@
 package br.com.service.imp;
 
-import br.com.error.ResourceNotFoundException;
+import br.com.error.*;
 import br.com.repository.AddColumnRepository;
 import br.com.repository.NameTableRepository;
 import br.com.service.ValidatorService;
+import br.com.table.NameTable;
+import br.com.table.column.AddColumn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class ValidatorServiceImp implements ValidatorService {
@@ -32,5 +36,44 @@ public class ValidatorServiceImp implements ValidatorService {
         if(addColumnRepository.findOne(id) == null){
             throw new ResourceNotFoundException("Column not found for ID: "+id);
         }
+    }
+
+    @Override
+    public String verifyIfNameAlredyExists(String nameTable) {
+
+        NameTable idNameTable = repository.findBayIdNameTable(nameTable);
+
+        if(idNameTable!=null) {
+            NameTable name = repository.findOne(idNameTable.getId());
+            if (nameTable.equals(name.getNameTable())) {
+                throw new InternalErrorCreatingExistingTable(nameTable + " already exists in database");
+            }
+        }
+
+        return nameTable.toString();
+    }
+
+    @Override
+    public String verifyNameDoesNotExist(String nameTable) {
+
+        NameTable idNameTable = repository.findBayIdNameTable(nameTable);
+        if(idNameTable==null) {
+                throw new InternalErrorCreateTableIsColumn("Table " +nameTable+ " does not exist");
+        }
+        return nameTable.toString();
+    }
+
+    @Override
+    public String verifyNameColumn(String nameTable, NameTable id, String nameColumn) {
+
+        String name = addColumnRepository.findBayNameColumnReplay(id, nameColumn);
+
+        if(name!=null) {
+            if (nameColumn.equals(name)) {
+                throw new InternalErrorCreateColumn("Column: "+nameColumn + " already exists in table: "+nameTable);
+            }
+        }
+
+        return nameColumn;
     }
 }

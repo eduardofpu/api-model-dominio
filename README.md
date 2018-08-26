@@ -26,15 +26,15 @@ $ docker-compose up
 $ mvn clean install
 ```
 
-## 3.Documentação via Rest Doc
+## 3. Documentação via Rest Doc
 Acesse a pasta target/generated-docs/index.html
 clique em index.html com o botão direito para abrir o browser
 e veja a documentação.
 
-## 4.É recomendado utilizar o Postman
+## 4. Recomendo o Postman
 Teste as rodas via postman descritas na documentação .
 
-## 5.Encerrar o docker
+## 5. Encerrar o docker
 ```sh
 $ docker-compose down
 

@@ -130,5 +130,4 @@ public class TableServiceTest extends AbstractTest {
         queryService.dropTable(nameTableReq);
         Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
     }
-
 }

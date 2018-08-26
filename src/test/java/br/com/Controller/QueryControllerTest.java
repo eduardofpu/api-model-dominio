@@ -388,7 +388,6 @@ public class QueryControllerTest extends AbstractTest {
         return data;
     }
 
-
     private Map<String, String> mapData2() {
         Map<String, String> data2 = new HashMap<>();
         data2.put(NAME_TABLE, NAME_TABLE_CONTATO);

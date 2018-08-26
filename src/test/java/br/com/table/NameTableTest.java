@@ -16,7 +16,6 @@ public class NameTableTest extends AbstractTest {
 
         Assertions.assertThat(id.getId()).isNotNull();
         Assertions.assertThat(id.getNameTable()).isEqualTo(nameCreatede.getNameTable());
-
     }
 
     @Test
@@ -31,14 +30,11 @@ public class NameTableTest extends AbstractTest {
         Assertions.assertThat(cod.getNameTable()).isEqualTo(nameUpdate.getNameTable());
     }
 
-
-
     @Test
     public void deleteTable() {
 
         NameTable id = createNameTable();
         NameTable.deleteTable(id.getId(), nameTableRepository, validatorService);
-
     }
 
     private NameTable createNameTable() {
@@ -49,5 +45,4 @@ public class NameTableTest extends AbstractTest {
         Assertions.assertThat(id.getNameTable()).isEqualTo(nameCreatede.getNameTable());
         return id;
     }
-
 }

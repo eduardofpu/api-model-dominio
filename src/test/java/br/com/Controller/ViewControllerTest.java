@@ -29,7 +29,6 @@ public class ViewControllerTest extends AbstractTest{
     private TableColumnDataType column = new TableColumnDataType(nameTableReq.getNameTable(), "name", "text");
     private TableColumnDataType column2 = new TableColumnDataType(nameTableReq2.getNameTable(), "name", "text");
 
-
     @Test
     public void findAllTable() throws Exception {
        createTable();
@@ -107,6 +106,4 @@ public class ViewControllerTest extends AbstractTest{
         queryService.dropTable(nameTableReq);
         queryService.dropTable(nameTableReq2);
     }
-
-
 }

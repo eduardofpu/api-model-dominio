@@ -60,7 +60,6 @@ public class ViewServiceTest extends AbstractTest{
         drope();
     }
 
-
     private void createTable() throws SQLException {
         queryService.createTable(nameTableReq);
         queryService.createTable(nameTableReq2);
@@ -70,7 +69,6 @@ public class ViewServiceTest extends AbstractTest{
         queryService.createColumn(column);
         queryService.createColumn(column2);
     }
-
 
     private void drope() throws SQLException {
         queryService.dropTable(nameTableReq);

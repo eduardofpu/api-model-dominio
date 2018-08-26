@@ -26,7 +26,5 @@ public class ValidatorServiceTest extends AbstractTest {
     public void verifyNameDoesNotExist() {
         exception.expect(InternalErrorCreateTableIsColumn.class);
         validatorService.verifyNameDoesNotExist(null);
-
     }
-
 }

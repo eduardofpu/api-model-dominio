@@ -155,6 +155,4 @@ public class QueryServiceTest extends AbstractTest{
         Assertions.assertThat(nameTableReq.getNameTable()).isEqualTo("contato");
         return nameTableReq;
     }
-
-
 }

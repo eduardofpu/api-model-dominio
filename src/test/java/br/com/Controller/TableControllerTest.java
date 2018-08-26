@@ -417,5 +417,4 @@ public class TableControllerTest extends AbstractTest {
         data.put(DATA_TYPE, DATA_TYPE_TEXT);
         return data;
     }
-
 }

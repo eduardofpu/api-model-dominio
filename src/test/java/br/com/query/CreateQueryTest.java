@@ -125,7 +125,6 @@ public class CreateQueryTest extends AbstractTest {
         Assertions.assertThat(id).isEqualToComparingFieldByField(3L);
 
         queryService.dropTable(nameTableReq);
-
     }
 
     @Test
@@ -137,7 +136,6 @@ public class CreateQueryTest extends AbstractTest {
 
         Long id = 3L;
         saveAll();
-
         NameTable idNameTable = nameTableRepository.findBayIdNameTable(NAME_TABLE_CONTATO);
         List<AddColumn> objectColumn = addColumnRepository.findBayNameColumn(idNameTable);
         Object object = CreateQuery.selectIdRg(NAME_TABLE_CONTATO, objectColumn, id);
@@ -145,8 +143,6 @@ public class CreateQueryTest extends AbstractTest {
         Assertions.assertThat(object).isEqualTo(list);
 
         queryService.dropTable(nameTableReq);
-
-
     }
 
     @Test
@@ -161,7 +157,6 @@ public class CreateQueryTest extends AbstractTest {
         Assertions.assertThat(object).isEqualTo(array);
 
         queryService.dropTable(nameTableReq);
-
     }
 
     @Test
@@ -172,7 +167,6 @@ public class CreateQueryTest extends AbstractTest {
         queryService.dropTable(nameTableReq);
     }
 
-
     @Test
     public void updateRg() throws SQLException {
         saveAll();
@@ -181,9 +175,7 @@ public class CreateQueryTest extends AbstractTest {
         CreateQuery.updateRg(NAME_TABLE_CONTATO, objectColumn, parameter.getParameters(), 1L );
 
         queryService.dropTable(nameTableReq);
-
     }
-
 
     @Test
     public void deleteRg()  throws SQLException{
@@ -192,7 +184,6 @@ public class CreateQueryTest extends AbstractTest {
         CreateQuery.deleteRg(NAME_TABLE_CONTATO, 3l);
 
         queryService.dropTable(nameTableReq);
-
     }
 
     @Test
@@ -201,7 +192,6 @@ public class CreateQueryTest extends AbstractTest {
         CreateQuery.deleteRgAll(NAME_TABLE_CONTATO);
 
         queryService.dropTable(nameTableReq);
-
     }
 
     @Test
@@ -211,7 +201,6 @@ public class CreateQueryTest extends AbstractTest {
         CreateQuery.deleteAddColumnIdTable(4L);
 
         queryService.dropTable(nameTableReq);
-
     }
 
     private void saveAll() throws SQLException {

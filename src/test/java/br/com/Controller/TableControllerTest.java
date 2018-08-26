@@ -11,6 +11,7 @@ import org.apache.commons.io.IOUtils;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.Test;
+import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -22,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 public class TableControllerTest extends AbstractTest {
@@ -67,6 +70,13 @@ public class TableControllerTest extends AbstractTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath(NAME_TABLE, Matchers.is(NAME_TABLE_CONTATO)))
                 .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                        documentationResultHandler.document(
+                                requestParameters(
+                                        parameterWithName(NAME_TABLE).description(NAME_TABLE_CONTATO)
+                                )
+                        )
+                )
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -89,10 +99,19 @@ public class TableControllerTest extends AbstractTest {
 
         this.mockMvc.perform(MockMvcRequestBuilders.get(PATH + "get/"+NAME_TABLE_CONTATO+"/2")
                 .param(NAME_TABLE, NAME_TABLE_CONTATO)
+                .param("id", "2")
                 .contentType(APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath(NAME_TABLE, Matchers.is(NAME_TABLE_CONTATO)))
                 .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                        documentationResultHandler.document(
+                                RequestDocumentation.requestParameters(
+                                        RequestDocumentation.parameterWithName(NAME_TABLE).description(NAME_TABLE_CONTATO),
+                                        RequestDocumentation.parameterWithName("id").description(2)
+                                )
+                        )
+                )
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -182,6 +201,13 @@ public class TableControllerTest extends AbstractTest {
                 .andExpect(jsonPath(NAME_TABLE, Matchers.is(NAME_TABLE_CONTATO)))
                 .andExpect(jsonPath(PARAMETERS, Matchers.is(PARAMETERS_LIST_EDIT)))
                 .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                        documentationResultHandler.document(
+                                requestParameters(
+                                        parameterWithName("id").description(id)
+                                )
+                        )
+                )
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -219,6 +245,14 @@ public class TableControllerTest extends AbstractTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                        documentationResultHandler.document(
+                                requestParameters(
+                                        parameterWithName(NAME_TABLE).description(NAME_TABLE_CONTATO),
+                                        parameterWithName(ID).description(id)
+                                )
+                        )
+                )
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -243,6 +277,13 @@ public class TableControllerTest extends AbstractTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                        documentationResultHandler.document(
+                                requestParameters(
+                                        parameterWithName(NAME_TABLE).description(NAME_TABLE_CONTATO)
+                                )
+                        )
+                )
                 .andReturn()
                 .getResponse()
                 .getContentAsString();

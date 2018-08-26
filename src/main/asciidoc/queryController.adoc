@@ -1,6 +1,3 @@
-
-== Contato
-
 === Create Table
 include::{snippets}/create-table/http-request.adoc[]
 include::{snippets}/create-table/http-response.adoc[]

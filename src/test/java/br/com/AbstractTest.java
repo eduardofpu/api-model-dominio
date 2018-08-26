@@ -6,6 +6,7 @@ import br.com.repository.NameTableRepository;
 import br.com.service.QueryService;
 import br.com.service.TableService;
 import br.com.service.ValidatorService;
+import br.com.service.ViewService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -51,6 +52,9 @@ public abstract class AbstractTest {
 
     @Autowired
     protected TableService tableService;
+
+    @Autowired
+    protected ViewService viewService;
 
     @Autowired
     protected ValidatorService validatorService;

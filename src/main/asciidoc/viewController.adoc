@@ -1,0 +1,12 @@
+=== FindAll Table
+include::{snippets}/find-all-table/http-request.adoc[]
+include::{snippets}/find-all-table/http-response.adoc[]
+
+=== FindAll Column
+include::{snippets}/find-all-column/http-request.adoc[]
+include::{snippets}/find-all-column/http-response.adoc[]
+
+=== Find Bay Table
+include::{snippets}/find-bay-table/http-request.adoc[]
+include::{snippets}/find-bay-table/request-parameters.adoc[]
+include::{snippets}/find-bay-table/http-response.adoc[]

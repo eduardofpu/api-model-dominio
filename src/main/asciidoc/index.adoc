@@ -4,47 +4,47 @@
 :toc: left
 :toclevels: 5
 
-== Introdução
-Bem-vindo à documentação da API do painel de controle. Essa documentação da API fornecerá informações suficientes sobre os recursos e as operações suportadas na versão atual. Esta API está seguindo as convenções Restful.
+== Introduction
+Welcome to the control panel API documentation. This API documentation will provide sufficient information about the features and operations supported in the current release. This API is following the Restful conventions.
 
-=== Como usar
-As solicitações devem ser feitas usando o protocolo HTTPS. A interface responde a diferentes métodos, dependendo da ação necessária.
+=== How to use
+Requests must be made using the HTTPS protocol. The interface responds to different methods, depending on the action required.
 
-=== HTTP Métodos
-Os métodos permitidos são:
+=== HTTP Methods
+The allowed methods are:
 
 |===
-| Método | Descrição
+| Method | description
 
 | `GET`
-| Usado para obter informações sobre um recurso
+| Used to get information about a resource
 
 |===
 
 [[http-status]]
-=== Códigos HTTP
-Os códigos HTTP suportados são:
+=== HTTP Codes
+The supported HTTP codes are:
 
 |===
-| Código | Descrição
+| Code | description
 
 | `200 OK`
-| O pedido foi executado com sucesso
+| The request ran successfully
 
 | `201 Created`
-| O novo recurso foi criado com sucesso
+| New feature was successfully created
 
 | `202 Accepted`
-| O novo recurso foi aceito com sucesso
+| New feature successfully accepted
 
 | `500 Internal Server Error`
-| Uma mensagem de erro genérica, dada quando nenhuma mensagem mais específica é adequada
+| A generic error message, given when no more specific message is appropriate
 
 |===
 
-= Recursos - Controlador
-Os recursos da API V1 são detalhados nesta seção.
+= Recursos - API
+The API V1 features are detailed in this section.
 
 include::queryController.adoc[]
 include::tableController.adoc[]
-
+include::viewController.adoc[]

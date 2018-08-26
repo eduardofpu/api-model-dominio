@@ -74,7 +74,6 @@ public class CreateQueryTest extends AbstractTest {
         deleteTable(NAME_TABLE_CIDADE);
     }
 
-
     @Test
     public void dropConstraintNotNullConlumn() throws SQLException {
         CreateQuery.createTable(NAME_TABLE_CONTATO);

@@ -1,7 +1,7 @@
 package br.com.service;
 
 import br.com.AbstractTest;
-import br.com.error.InternalErrorCreateTableIsColumn;
+import br.com.error.InternalError;
 import br.com.error.ResourceNotFoundException;
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class ValidatorServiceTest extends AbstractTest {
 
     @Test
     public void verifyNameDoesNotExist() {
-        exception.expect(InternalErrorCreateTableIsColumn.class);
+        exception.expect(InternalError.class);
         validatorService.verifyNameDoesNotExist(null);
     }
 }

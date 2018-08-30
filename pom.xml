@@ -31,6 +31,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--&lt;!&ndash; SPRING BOOT SECURITY &ndash;&gt;
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>-->
+
         <!--Para automatizar build-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
